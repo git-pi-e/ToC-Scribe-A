@@ -49,7 +49,7 @@
 \lecture{8}{More Closure Properties}
 
 \section*{More Closure Properties}
-\newtheorem*{Monoid}{Hi}
+\subsection{Monoid}
 A tuple $ (S, \bullet, e) $ is known as a \emph{monoid}, if:
 \begin{itemize}
    \item[$-$] $ S $ is a set.
@@ -64,7 +64,37 @@ Eg: $ (\mathbb{N}, + , 0) $ is a monoid.   [Also commutative.]
 
 
 Eg: $ (\{e,a\}, \bullet, e)$ is \emph{NOT} a monoid.
-[Because, if we consider $'a'$  and $'a'$, we get the concatenation $a \bullet a = aa$, which is not a part of the set $\{e,a\}$, since it has to be $ S x S \rightarrow S $]
+[Because, if we consider $'a'$  and $'a'$, we get the concatenation $a \bullet a = aa$, which is not a part of the set $\{e,a\}$, since it has to be $ S x S \rightarrow S $.] \\
+
+\textbf{\underline{Specification:}} (trying to describe what is required in words)
+\[ \exists x \exists y.( x < y \land R_a(x) \land R_b(y)) \]
+
+\textbf{$R_a(x) $ :} Tells us that at the position $'x'$ in the word, we have the letter $'a'$.
+
+
+\textbf{$R_b(y) $ :} Tells us that at the position $'y'$ in the word, we have the letter $'b'$.
+
+
+\subsection{Homomorphism}
+A function $ h : S_1 \rightarrow S_2 $ is called a (monoid) homomorphism from $ (S_1, \bullet_1, e_1) $ to $ (S_1, \bullet_1, e_1) $, if:
+
+\begin{itemize}
+   \item[$ - $] $ h(e_1) = e_2$.
+   \item[$ - $] $ \forall u,v \in S_1, h(u \bullet_1  v) = h(u) \bullet_2 h(v) $.
+\end{itemize}
+
+Eg: $ h : \{a,b{\}}^* \rightarrow \mathbb{N} $ is defined as $ h(w) = |w| $ is a homomorphism from $ (\Sigma^*, \bullet, e) $\ to $(\mathbb{N}, +, 0) $.
+
+
+\begin{theorem}
+   Let h is a homomorphism from $ (\Sigma^*, \bullet, e) $ to $ (\Gamma^*, \bullet, e) $. Then:
+   \begin{enumerate}
+      \item If $ L \subset \Sigma^* $ is regular, then $ h(L) \subseteq \Gamma^* $ is regular. [$ h(L) := \{ h(w) | w \in L \}$]
+      \item If $ L \subset \Gamma^* $ is regular, then $ h^-1(L) \subseteq \Gamma^* $ is regular. [$ h(L) := \{ w \in \Sigma  | h(w)\in L \}$]
+   \end{enumerate}
+
+\end{theorem}
+
 
 
 
