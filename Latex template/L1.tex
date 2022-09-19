@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+\usepackage[left=3cm, right=3cm, top=2cm]{geometry}
+
+%\usepackage[light,condensed,math]{anttor}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,graphicx}
+\usepackage{hyperref}
+
+
+%%cmark, xmark
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{float}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[2]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CS F351: Theory of Computation
+	\hfill Sep 2022} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it \hfill Scribe: Anup B Mathew} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+%
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{exercise}[theorem]{exercise}
+
+\begin{document}
+\lecture{1}{Course Introduction}
+
+The term \textit{computable} (or \textit{calculable}) has always been part of the scientific lexicon. Today we have a better understanding of this term due to the prevalence of computers; something is considered calculable, if a computer can do it. However it wasn't until the early 20th century (before the existence of computers) that there was a need to make this notion precise. The need for precision came from the following question asked by logicians of the time:  ``Do there exist mechanical rules that can identify mathematical truths and falsehoods?''.
+
+In the 1930's there were many attempts to formalize the notion of computability.
+\begin{itemize}
+\item Kurt G\"odel (of the G\"odel imcompleteness theorem fame) proposed the system of \emph{$\mu$-recursive functions} (1933 at Vienna).
+\item A few years later Alonzo Church and his student Stephen Kleene (1936 at Princeton) proposed the notion of \emph{$\lambda$-definable} functions and showed that many function that we consider computable are $\lambda$-definable. This system forms the basis of functional programming languages and automated theorem provers
+  \item Another proposal was by Alan Turing (1936 at Cambridge/Princeton, 23 years old) in which he defined what we now call \emph{Turing machines}. This forms the basis of modern computers.
+\end{itemize}
+Soon after, Church, Kleene and Turing proved that their definitions are equivalent.
+The subject `Theory of Computation' originated from the seminal results above. We list below some of the central ideas/themes of the subject as of today:
+\begin{itemize}
+\item Identify problems that are computable/uncomputable.
+\item Classify computable problems on the basis of expressivity (dynamic memory,function calls, distributedness) and resource utilization (Time,Space, bandwidth).
+\item Identify relationships between the above-mentioned classes. For example, can something that requires $n$ units of space, be done in $n^2$ units of time?
+\item Study semantics of programming languages:
+  \begin{itemize}
+  \item Operational semantics defines the meaning of a program as its effect on the state of a machine.
+  \item Denotational semantics defines the meaning of a program as the function it computes.
+  \end{itemize}
+\item Develop bug-free of programs via verification against specification (ee Hoare logic, Model cheching for more deatils) or synthesis from specification.
+\end{itemize}
+
+\end{document}

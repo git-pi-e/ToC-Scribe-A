@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage[left=3cm, right=3cm, top=2cm]{geometry}
+
+%\usepackage[light,condensed,math]{anttor}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,graphicx}
+\usepackage{hyperref}
+
+
+%%cmark, xmark
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{float}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[2]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CS F351: Theory of Computation
+	\hfill 16 Sep, 2022} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it \hfill Scribe: Piyush Mohite} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+%
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{exercise}[theorem]{exercise}
+
+\begin{document}
+\lecture{8}{More Closure Properties}
+
+\section*{More Closure Properties}
+\newtheorem*{Monoid}{Hi}
+A tuple $ (S, \bullet, e) $ is known as a \emph{monoid}, if:
+\begin{itemize}
+   \item[$-$] $ S $ is a set.
+   \item[$-$]  $ \bullet : $ is \emph{associative}, i.e., $ \forall u,v,w \in S, (w \bullet u) \bullet v = w \bullet(u \bullet v) $
+   \item[$-$] $e \in S $ is the identity element, i.e., $ \forall w \in S, e \bullet w = w \bullet e = w $
+\end{itemize}
+
+Eg: $ (\Sigma^\star, \bullet, e)$ is a monoid.
+
+
+Eg: $ (\mathbb{N}, + , 0) $ is a monoid.   [Also commutative.]
+
+
+Eg: $ (\{e,a\}, \bullet, e)$ is \emph{NOT} a monoid.
+[Because, if we consider $'a'$  and $'a'$, we get the concatenation $a \bullet a = aa$, which is not a part of the set $\{e,a\}$, since it has to be $ S x S \rightarrow S $]
+
+
+
+
+
+
+\end{document}
