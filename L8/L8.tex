@@ -6,7 +6,6 @@
 \usepackage{amsmath,graphicx}
 \usepackage{hyperref}
 
-
 %%cmark, xmark
 \usepackage{amssymb}% http://ctan.org/pkg/amssymb
 \usepackage{pifont}% http://ctan.org/pkg/pifont
@@ -14,7 +13,18 @@
 \newcommand{\xmark}{\ding{55}}%
 \usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
 \usepackage{tcolorbox}
+\usepackage{float}
 \usepackage{tikz}
+
+\usetikzlibrary{arrows,automata,positioning}
+
+%%cmark, xmark
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+% \newcommand{\cmark}{\ding{51}}%
+% \newcommand{\xmark}{\ding{55}}%
+%\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+% \usepackage{tcolorbox}
 \usepackage{float}
 
 %
@@ -50,55 +60,76 @@
 
 \section*{More Closure Properties}
 \subsection{Monoid}
-A tuple $ (S, \bullet, e) $ is known as a \emph{monoid}, if:
+A tuple $ (S, \cdot, e) $ is known as a \emph{monoid}, if:
 \begin{itemize}
    \item[$-$] $ S $ is a set.
-   \item[$-$]  $ \bullet : $ is \emph{associative}, i.e., $ \forall u,v,w \in S, (w \bullet u) \bullet v = w \bullet(u \bullet v) $
-   \item[$-$] $e \in S $ is the identity element, i.e., $ \forall w \in S, e \bullet w = w \bullet e = w $
+   \item[$-$]  $ \cdot : $ is \emph{associative}, i.e., $ \forall u,v,w \in S, (w \cdot u) \cdot v = w \cdot(u \cdot v) $
+   \item[$-$] $e \in S $ is the identity element, i.e., $ \forall w \in S, e \cdot w = w \cdot e = w $
 \end{itemize}
 
-Eg: $ (\Sigma^\star, \bullet, e)$ is a monoid.
+   Eg:  $ (\Sigma^\star, \cdot, e) $  is a monoid.
 
 
-Eg: $ (\mathbb{N}, + , 0) $ is a monoid.   [Also commutative.]
+
+   Eg: $ (\mathbb{N}, +, 0) $ is a monoid. \hspace{2.05cm}  [Also commutative.]
 
 
-Eg: $ (\{e,a\}, \bullet, e)$ is \emph{NOT} a monoid.
-[Because, if we consider $'a'$  and $'a'$, we get the concatenation $a \bullet a = aa$, which is not a part of the set $\{e,a\}$, since it has to be $ S x S \rightarrow S $.] \\
+   Eg: $ (\{e,a\}, \cdot, e) $ is \emph{NOT} a monoid. \hspace{0.1cm} [Because, if we consider $'a'$  and $'a'$, we get the concatenation $ a \cdot a = aa $, which is not a part of the set $\{e,a\}$, since it has to be $ S x S \rightarrow S $.]
+
+
+
 
 \textbf{\underline{Specification:}} (trying to describe what is required in words)
 \[ \exists x \exists y.( x < y \land R_a(x) \land R_b(y)) \]
 
-\textbf{$R_a(x) $ :} Tells us that at the position $'x'$ in the word, we have the letter $'a'$.
+\textbf{$R_a(x) $:} Tells us that at the position $'x'$ in the word, we have the letter $'a'$.
 
 
-\textbf{$R_b(y) $ :} Tells us that at the position $'y'$ in the word, we have the letter $'b'$.
+\textbf{$R_b(y) $:} Tells us that at the position $'y'$ in the word, we have the letter $'b'$.
 
 
 \subsection{Homomorphism}
-A function $ h : S_1 \rightarrow S_2 $ is called a (monoid) homomorphism from $ (S_1, \bullet_1, e_1) $ to $ (S_1, \bullet_1, e_1) $, if:
+A function $ h : S_1 \rightarrow S_2 $ is called a (monoid) homomorphism from $ (S_1, \cdot_1, e_1) $ to $ (S_1, \cdot_1, e_1) $, if:
 
 \begin{itemize}
    \item[$ - $] $ h(e_1) = e_2$.
-   \item[$ - $] $ \forall u,v \in S_1, h(u \bullet_1  v) = h(u) \bullet_2 h(v) $.
+   \item[$ - $] $ \forall u,v \in S_1, h(u \cdot_1  v) = h(u) \cdot_2 h(v) $.
 \end{itemize}
 
-Eg: $ h : \{a,b{\}}^* \rightarrow \mathbb{N} $ is defined as $ h(w) = |w| $ is a homomorphism from $ (\Sigma^*, \bullet, e) $\ to $(\mathbb{N}, +, 0) $.
+Example: $ h : \{a,b{\}}^* \rightarrow \mathbb{N} $ is defined as $ h(w) = |w| $ is a monoid homomorphism from $ (\Sigma^*, \cdot, e) $\ to $(\mathbb{N}, +, 0) $.
+
+\emph{Explanation: } $ h(e) = |e| = 0 $ and $ h(u \cdot v) = |u \cdot v| = |u| + |v| $.
+
+
+It follows from these properties that any homomorphism defined on $\Sigma^*$ is uniquely determined by it's values on $\Sigma$.
+Example: if $h(a) = ccc $ and $ h(b) = dd $, then \[ h(abaab) = h(a)h(a)h(b)h(a)h(b) = cccddccccccdd \]
+
+If $A\subseteq\Sigma^*$, define \[ h(A) \stackrel{def}{=} \{h(x) \,|\, x \in A\}\]
+
+and if $ B\subseteq\Gamma^*$, define \[ h^{-1}(B) \stackrel{def}{=} \{h(x) \,|\, x \in B\} \]
+The set $h(A)$ is called the image of $A$ under $h$, and the set $h^{-1}(B)$ is called the preimage of $B$ under $h$.
 
 
 \begin{theorem}
-   Let h is a homomorphism from $ (\Sigma^*, \bullet, e) $ to $ (\Gamma^*, \bullet, e) $. Then:
+   Let h be a monoid homomorphism from $ (\Sigma^*, \cdot, e) $ to $ (\Gamma^*, \cdot, e) $. Then:
    \begin{enumerate}
-      \item If $ L \subset \Sigma^* $ is regular, then $ h(L) \subseteq \Gamma^* $ is regular. [$ h(L) := \{ h(w) | w \in L \}$]
-      \item If $ L \subset \Gamma^* $ is regular, then $ h^-1(L) \subseteq \Gamma^* $ is regular. [$ h(L) := \{ w \in \Sigma  | h(w)\in L \}$]
+      \item If $ L \subset \Sigma^* $ is regular, then $ h(L) \subseteq \Gamma^* $ is regular. \[ h(L) := \{ h(w) \, | \, w \in L \}\]
+      \item If $ L \subseteq \Gamma^* $ is regular, then $ h^-1(L) \subseteq \Gamma^* $ is regular. \[ h^{-1}(L) := \{ w \in \Sigma^* \, | \, h(w)\in L \}\]
    \end{enumerate}
 
 \end{theorem}
 
+\emph{Explanation}: Any homomorphic image or homomorphic preimage of a regular language is regular.
 
 
+\emph{\textbf{Example:}} \[ L_1 := \{e,aa,aaaa,aaaaaa,\dots,\} \]
+\[h(L_1) := \{e,00,000,0000,\dots,\}\]
+Here, if $L_1$ is regular, $h(L_1)$ is also regular.
 
+\emph{\textbf{Example:}} \[ h^{-1}(0) = \{a,c\} \] \[\space h^{-1}(00) = \{aa,cc,ac,ca\}\]
+Now, $h^{-1}(L_1) =$ set of all words of even length having $a$'s or $ c$'s.-
 
+$\therefore$ $h^{-1}(L_1)$ is regular if $L_1$ is regular.
 
 
 \end{document}
