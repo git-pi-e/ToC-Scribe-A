@@ -1,0 +1,131 @@
+\documentclass[12pt]{article}
+\usepackage[left=3cm, right=3cm, top=2cm]{geometry}
+
+%\usepackage[light,condensed,math]{anttor}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,graphicx}
+\usepackage{hyperref}
+
+%%cmark, xmark
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,automata,positioning}
+
+%%cmark, xmark
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+% \newcommand{\cmark}{\ding{51}}%
+% \newcommand{\xmark}{\ding{55}}%
+%\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+% \usepackage{tcolorbox}
+\usepackage{float}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[2]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CS F351: Theory of Computation
+	\hfill \textbf{$12^{th}$} Nov, 2022} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it \hfill Scribe: Piyush Mohite (2020A7PS0114G)} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+%
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{exercise}[theorem]{exercise}
+
+\begin{document}
+\lecture{29}{Pumping Lemma for Context Free Languages}
+
+\section*{Pumping Lemma for CFLs}
+
+For any CFL $ L $, $\exists$ $ k $ $\in$ $\mathbb{N}$, such that for any word $ w $ $\in$ $ L $ with $|w| > k$, there exists a partition w = uvxyz such that following holds:
+
+\begin{itemize}
+   \item$ |vy| > 0 $ ; i.e. the part to be pumped should be non empty.
+   \item $uv^ixy^iz \in L$, $ \forall i \in \mathbb{N}$
+   \item $ |vxy| \leq k$.
+\end{itemize}
+
+\textbf{Note:} Pumping Lemma is a necessary condition for a language to be Context-Free. It is not sufficient.
+\\ \\
+\textbf{Example:} $ L = \{ a^nb^nc^n \mid n \geq 0 \}$ is not a CFL, as it fails the pumping lemma.
+\textbf{Proof:}
+\begin{itemize}
+   \item[ $-$ ] Assume, for a contradiction, that $ L $ is a CFL. Hence, Pumping Lemma for CFL should hold for $ L $, since it is a necessary condition for a language to be CFL.
+   \item[ $-$ ] let G be a grammar for this language. WLOG, consider G to be in CNF. Assume for the size of G is bounded above by $ p $.
+   \item[ $-$ ] Since we want to pick a long enough word, it should have length more than 2p, as G is in CNF. Let $ k = 2p + 1 $.
+   \item[ $-$ ] Let $ w = a^kb^kc^k $ be the word in $ L $ such that $ |w| > 2p $ (i.e. $ |w| \geq k $).
+   \item[ $-$ ] To arrive at a contradiction, we need to show that for any spilt of this word of the form $ uvxyz, \exists i $ such that $ uv^ixy^z \notin L $.
+   \item[ $-$ ] Following cases of word split can arise:
+   \item[ ] \begin{itemize}
+         \item[] \textbf{Case I}: Any part to be pumped (i.e $v$ or $y$) is word made of single letter. In such case, that part can be pumped one more time so that we get a new word that does not lie in $L$. This is true for all combinations of $v,y$. An example in which $v$ is a word of all $a$'s is given below.
+
+            \[ w = a^{j1}.a^{j2}.a^{j3}.a^{j4}.a^{(k-j1-j2-j3-j4)}b^kc^k \]
+
+            \[w = u.v.x.y.z\]
+
+            \textbf{The new word formed after pumping is:}
+
+            \[w' = u.v^2.x.y^2.z = a^{(k+j2+j4)}b^kc^k\]
+
+            Similarly, it can be proved that any word $ w $ whose partition $ v $ or $ y $ is word made with 1 letter will produce a word $ w' \notin L $.
+
+         \item[] \textbf{Case II}:Any part to be pumped (i.e. $v$ or $y$) is word made of 2 letters. In such case,
+            that part can be pumped one more time so that we get a new word that does not lie in $L$. This is true for all combinations of $v,y$. An example in which $v$ is a word of $a$'s and $b$'s is given below.
+
+            \[ w = a^{j1}.a^{k - j1}b^{j2}.b^{j3}.b^{j4}.b^{k - j2 - j3 - j4}.c^k \]
+
+            \[w = u.v.x.y.z\]
+
+            \textbf{The new word formed after pumping is:}
+
+            \[w' = u.v^2.x.y^2.z = a^kb^{j2}a{(j-j1)}b^kc^k \notin L\]
+
+            Similarly, it can be proved that any word $ w $ whose partition $ v $ or $ y $ is word made with 2 letters will produce a word $ w' \notin L $.
+
+         \item[] \textbf{Case III}: Any part to be pumped (i.e. $v$ or $y$) is word made of 3 letters. In such case, that part can be pumped one more time so that we get a new word that does not lie in $L$. This is true for all combinations of $v,y$. An example in which $y$ is a word of $a$'s, $b$'s
+            and $c$'s is given below.
+
+            \[ w = a^{j1}.a^{k - j1}b^{j2}.b^{j3}.b^{j4}.b^{k - j2 - j3 - j4}.c^k \]
+
+            \[w = u.v.x.y.z\]
+
+            \textbf{The new word formed after pumping is:}
+
+            \[w' = u.v^2.x.y^2.z = a^{(k+j2)}b^kc^{j4}a^{(k-j1-j2-j3)}b^kc^k \notin L\]
+
+            Similarly, it can be proved that any word $ w $ whose partition $ v $ or $ y $ is word made with 3 letters will produce a word $ w' \notin L $.
+
+      \end{itemize}
+
+   \item[ $-$ ] Hence for any spilt of this word of the form $ uvxyz$, $ \exists i $ such that $ uv^ixy^iz \notin L $.
+   \item[ $-$ ] But, this is a contradiction, as we assumed that $ L $ is a CFL. Therefore, it can be concluded that our assumption was wrong.
+   \item[ $-$ ] Hence, $ L $ is not a CFL. Hence proved.
+
+\end{itemize}
+
+
+
+\end{document}
